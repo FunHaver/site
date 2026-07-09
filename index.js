@@ -10,6 +10,7 @@ function main() {
 	"Resume",
 	"Links"
     ]
+    
     menuItems[selectedIdx].classList.add("selected");
     contentSection.innerHTML = contentPages[selectedIdx];
     document.addEventListener("keydown", handleKeyDown);
@@ -61,11 +62,8 @@ function main() {
     }
 
     function handleClick(e) {
-	let oldActive = document.getElementsByClassName("selected")[0];
-	oldActive.classList.remove("selected");
 	selectedIdx = parseInt(e.target.getAttribute("data-idx"));
-	e.target.classList.add("selected");
-	contentSection.innerHTML = contentPages[selectedIdx];
+	setActiveMenuItem();
     }
 }
 
