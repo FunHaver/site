@@ -1,0 +1,27 @@
+.desktop-grid {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.content-side {
+    width: 75vw;
+    border: 1px solid black;
+}
+
+.menu-side {
+    min-width: 200px;
+    width: 50%;
+    border: 1px solid blue;
+}
+
+.menu-item {
+    height: 50px;
+    width: 200px;
+    border: 1px solid red;
+}
+
+.selected {
+    background-color: #EEE;
+}

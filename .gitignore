@@ -1,0 +1,12 @@
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Vim
+*.swp
+*.swo
+*.swn
+.*.swp
+Session.vim
+.netrwhist
