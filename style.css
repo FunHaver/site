@@ -1,28 +1,33 @@
-.desktop-grid {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+body{
+    background-color: white;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
-.content-side {
-    width: 75vw;
-    border: 1px solid black;
+.menu {
+    position: relative;
+    grid-column: 1/2;
+    width: 300px;
+    height: 555px;
+    overflow:visible;
 }
 
-.menu-side {
-    min-width: 200px;
-    width: 50%;
-    border: 1px solid blue;
-}
-
-.menu-item {
-    height: 50px;
+.box {
+    position: absolute;
     width: 200px;
-    border: 1px solid red;
-    cursor: pointer;
+    height: 100px;
+    border: 1px solid black;
+    transition: top 0.25s, left 0.25s;
+    transition-timing-function: linear;
 }
 
-.selected {
-    background-color: #EEE;
+.content {
+    background-color: blue;
+    grid-column: 2/3;
+    flex-grow: 2;
+    height: 100%;
+    width: 100%;
 }
