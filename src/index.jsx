@@ -124,19 +124,19 @@ function changeContent(){
   const content = document.getElementById("content");
   switch(page){
     case "#contact":
-      content.innerHTML = <markup path="content_pages/contact.html"/>;
+      content.innerHTML = <markup path="src/content_pages/contact.html"/>;
       break;
     case "#resume":
-      content.innerHTML = <markup path="content_pages/resume.html"/>;
+      content.innerHTML = <markup path="src/content_pages/resume.html"/>;
       break;
     case "#home":
-      content.innerHTML = <markup path="content_pages/home.html"/>;
+      content.innerHTML = <markup path="src/content_pages/home.html"/>;
       break;
     case "#projects":
-      content.innerHTML = <markup path="content_pages/projects.html"/>;
+      content.innerHTML = <markup path="src/content_pages/projects.html"/>;
       break;
     case "#links":
-      content.innerHTML = <markup path="content_pages/links.html"/>;
+      content.innerHTML = <markup path="src/content_pages/links.html"/>;
       break;
   }
 }

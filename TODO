@@ -1,2 +1,4 @@
 Write build script that transpiles JSX tags into function that returns content of file at path
 as string. Be sure to sanitize.
+
+Read: https://react.github.io/jsx/
