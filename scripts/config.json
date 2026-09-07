@@ -1,0 +1,14 @@
+{ 
+  "projectRoot": "..",
+  "in": "src",
+  "out": "dist",
+  "interpolator": {
+    "extension": "jsx"
+  },
+  "copy":{
+    "files": [
+      "index.html",
+      "style.css"
+    ]
+  }
+}
