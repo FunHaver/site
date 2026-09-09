@@ -7,5 +7,5 @@ const config = JSON.parse(
   readFileSync(resolve(import.meta.dirname, 'config.json'), 'utf-8')
 );
 
-copy(config.in,config.out,config.projectRoot,config.copy.files);
+copy(config.in,config.out,config.projectRoot,config.copy.fileList,{wipeDist: true});
 interpolate(config.projectRoot,config.in,config.interpolator.extension,config.out);

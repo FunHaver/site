@@ -14,6 +14,7 @@ function copy(src,dist,projectRoot,filesToMove = [],{wipeDist} = {wipeDist: fals
 
   if (wipeDist) {
     rmSync(resolvedDist, { recursive: true, force: true });
+    console.log(resolvedDist + " deleted");
   }
 
   mkdirSync(resolvedDist, { recursive: true });

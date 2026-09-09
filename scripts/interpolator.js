@@ -1,7 +1,7 @@
 import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { createInterface } from 'node:readline/promises';
 import path, { resolve } from 'node:path';
-
+import { EOL } from 'node:os';
 
 function readHTMLFile(htmlPath) {
   const resolvedPath = resolve(import.meta.dirname, '..', htmlPath);
@@ -18,7 +18,7 @@ function findAndReplaceMarkupTags(line) {
   const replacementLine = line.replace(regex, (fullTag, htmlPath) => {
     return JSON.stringify(readHTMLFile(htmlPath));
   })
-  return replacementLine;
+  return replacementLine + EOL;
 }
 
 async function process(filePath) {

@@ -119,18 +119,14 @@ function animate(e) {
   }
 }
 
-function changeContent(){
-  const page = window.location.hash;
+function changeContent(hash = window.location.hash){
   const content = document.getElementById("content");
-  switch(page){
+  switch(hash){
     case "#contact":
       content.innerHTML = <markup path="src/content_pages/contact.html"/>;
       break;
     case "#resume":
       content.innerHTML = <markup path="src/content_pages/resume.html"/>;
-      break;
-    case "#home":
-      content.innerHTML = <markup path="src/content_pages/home.html"/>;
       break;
     case "#projects":
       content.innerHTML = <markup path="src/content_pages/projects.html"/>;
@@ -138,12 +134,21 @@ function changeContent(){
     case "#links":
       content.innerHTML = <markup path="src/content_pages/links.html"/>;
       break;
+    case "#home":
+    default:
+      content.innerHTML = <markup path="src/content_pages/home.html"/>;
+      break;
   }
 }
 
 function handleMenuChange(e){
+  if (disableControls) {
+    return;
+  }
   animate(e);
-  changeContent()
+  const idx = e.type === "click" ? parseInt(e.currentTarget.getAttribute("data-idx")) : activeIdx;
+  const anchor = document.querySelector(`[data-idx="${idx}"]`).parentElement;
+  window.location.hash = anchor.getAttribute("href");
 }
 
 //INIT
@@ -165,5 +170,13 @@ for (let i = 0; i < boxes.length; i++) {
   }
 }
 
-document.addEventListener("keydown", handleMenuChange);
+changeContent();
+document.addEventListener("keydown", (e) => {
+  if(["ArrowDown", "ArrowUp"].includes(e.key)){
+    handleMenuChange(e)
+  }
+});
 
+window.addEventListener("hashchange",() => {
+  changeContent();
+})

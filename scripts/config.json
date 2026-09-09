@@ -6,7 +6,7 @@
     "extension": "jsx"
   },
   "copy":{
-    "files": [
+    "fileList": [
       "index.html",
       "style.css"
     ]
