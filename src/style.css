@@ -1,5 +1,5 @@
 body{
-    background-color: white;
+    background-color: black;
     display: grid;
     grid-template-columns: 300px 1fr;
     align-items: center;
@@ -17,11 +17,41 @@ body{
 
 .box {
     position: absolute;
-    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
     height: 100px;
     border: 1px solid black;
     transition: top 0.25s, left 0.25s;
     transition-timing-function: linear;
+    transform: translateX(-45px);
+    clip-path: polygon(0% 0%, 93% 0%, 100% 15%, 100% 85%, 93% 100%, 0% 100%, 0% 100%, 0% 0%);
+}
+
+.active {
+    background-color: yellow;
+}
+
+.menu-content {
+    width: 100%;
+    height: 100%;
+    background: #F9D977;
+    background: linear-gradient(90deg,rgba(249, 217, 119, 1) 10%, rgba(36, 36, 36, 1) 50%);
+    /*clip-path: polygon(0% 10%, 93% 0%, 100% 15%, 100% 85%, 93% 100%, 0% 100%, 0% 100%, 0% 0%);*/
+    clip-path: polygon(0% 4%, 93% 4%, 98.5% 15%, 98.5% 85%, 93% 96%, 0% 96%, 0% 96%, 0% 4%);    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    .page-title {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: bold;
+        font-size: 2rem;
+        color: #00C800;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        pointer-events: none;
+    }
 }
 
 .content {

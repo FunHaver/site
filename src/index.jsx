@@ -93,6 +93,7 @@ function animate(e) {
   if (disableControls) {
     return;
   }
+  document.querySelector(`[data-idx="${activeIdx}"]`).classList.remove("active");
   if (e.type === "click") {
     let selectedIdx = parseInt(e.target.getAttribute("data-idx"));
     let steps = selectedIdx - activeIdx;
@@ -117,6 +118,7 @@ function animate(e) {
       disableControls = false;
     }, menuTimeoutMS);
   }
+  document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active");
 }
 
 function changeContent(hash = window.location.hash){
@@ -169,7 +171,7 @@ for (let i = 0; i < boxes.length; i++) {
     positions.push([-boxWidth, topValue]);
   }
 }
-
+document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active"); //set active border
 changeContent();
 document.addEventListener("keydown", (e) => {
   if(["ArrowDown", "ArrowUp"].includes(e.key)){
