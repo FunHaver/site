@@ -70,6 +70,7 @@ function shiftPositionsUp() {
 }
 
 function animateClickSteps(remainingSteps) {
+  document.querySelector(`[data-idx="${activeIdx}"]`).classList.remove("active");
   if (remainingSteps > 0) {
     shiftPositionsUp();
     activeIdx === boxes.length - 1 ? (activeIdx = 0) : activeIdx++;
@@ -77,7 +78,7 @@ function animateClickSteps(remainingSteps) {
     shiftPositionsDown();
     activeIdx === 0 ? (activeIdx = boxes.length - 1) : activeIdx--;
   }
-
+  document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active");
   if (remainingSteps > 1) {
     disableControls = true;
     setTimeout(() => animateClickSteps(remainingSteps - 1), menuTimeoutMS);
@@ -93,7 +94,6 @@ function animate(e) {
   if (disableControls) {
     return;
   }
-  document.querySelector(`[data-idx="${activeIdx}"]`).classList.remove("active");
   if (e.type === "click") {
     let selectedIdx = parseInt(e.target.getAttribute("data-idx"));
     let steps = selectedIdx - activeIdx;
@@ -105,20 +105,21 @@ function animate(e) {
       animateClickSteps(steps);
     }
   } else if (e.type === "keydown") {
-    if (e.key === "ArrowDown") {
+    document.querySelector(`[data-idx="${activeIdx}"]`).classList.remove("active");
+    if (e.key === "ArrowUp") {
       shiftPositionsDown();
       activeIdx === 0 ? (activeIdx = boxes.length - 1) : activeIdx--;
       disableControls = true;
-    } else if (e.key === "ArrowUp") {
+    } else if (e.key === "ArrowDown") {
       shiftPositionsUp();
       activeIdx === boxes.length - 1 ? (activeIdx = 0) : activeIdx++;
       disableControls = true;
     }
+    document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active");
     setTimeout(() => {
       disableControls = false;
     }, menuTimeoutMS);
   }
-  document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active");
 }
 
 function changeContent(hash = window.location.hash){
