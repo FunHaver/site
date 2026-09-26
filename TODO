@@ -1,6 +1,8 @@
+[] Fix behavior when refreshing on not home page
+[] Fix behavior when manually changing url hash
 [] Add content to content_pages
 [] Do CSS styling
-  [] Menu styling
+  [x] Menu styling
   [] Content styling
   [] Font selection
   [] Background selection
