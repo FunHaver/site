@@ -8,7 +8,9 @@
   "copy":{
     "fileList": [
       "index.html",
-      "style.css"
+      "style.css",
+      "three.min.js",
+      "vanta.dots.min.js"
     ]
   }
 }
