@@ -3,9 +3,10 @@
 [] Add content to content_pages
 [] Do CSS styling
   [x] Menu styling
-  [] Content styling
+  [x] Content styling
   [] Font selection
-  [] Background selection
+  [x] Background selection
 [] implement mobile version
+  -Once aspect ratio < 1.0 go mobile mode
 [] make website keyboard-navigable (via tab/focus)
 [] high-contrast/easy-to-read switch
