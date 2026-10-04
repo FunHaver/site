@@ -1,5 +1,6 @@
-[] Fix behavior when refreshing on not home page
+[x] Fix behavior when refreshing on not home page
 [] Fix behavior when manually changing url hash
+[] Add depth to dist directory for copyToDist script
 [] Add content to content_pages
 [] Do CSS styling
   [x] Menu styling

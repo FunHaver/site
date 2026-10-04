@@ -1,6 +1,15 @@
 let boxes = document.getElementsByClassName("box");
+const urlHashIdx = {
+  "#contact": 0,
+  "#resume": 1,
+  "#home": 2,
+  "": 2,
+  "#code": 3,
+  "#video": 4
+}
 
 const menuTimeoutMS = 225; //timeout 25 ms < animation duration in css
+const homeIdx = 2;
 let disableControls = false;
 let activeIdx = 2;
 const boxWidth = boxes[0].offsetWidth;
@@ -9,6 +18,26 @@ let positions = [];
 
 const endVisIdx = Math.floor((boxes.length - 1) / 2);
 const medianVisIdx = Math.floor(boxes.length / 4);
+
+
+//fewest shifts to get from one idx to another, negative means shift down
+function shortestSteps(from, to) {
+  let steps = (((to - from) % boxes.length) + boxes.length) % boxes.length;
+  return steps > boxes.length / 2 ? steps - boxes.length : steps;
+}
+
+//the menu repeats the pages twice, so each hash matches two boxes.
+//pick the nearer copy, and treat an unknown hash as home like changeContent does
+function idxForHash(hash) {
+  const base = urlHashIdx[hash];
+  if (base === undefined) {
+    return homeIdx;
+  }
+  const alt = base + boxes.length / 2;
+  return Math.abs(shortestSteps(activeIdx, base)) <= Math.abs(shortestSteps(activeIdx, alt))
+    ? base
+    : alt;
+}
 
 function calculateVisibleLeft(idx, median, offsetStep, end) {
   if (idx <= median) {
@@ -96,11 +125,7 @@ function animate(e) {
   }
   if (e.type === "click") {
     let selectedIdx = parseInt(e.target.getAttribute("data-idx"));
-    let steps = selectedIdx - activeIdx;
-    steps = ((steps % boxes.length) + boxes.length) % boxes.length;
-    if (steps > boxes.length / 2) {
-      steps -= boxes.length;
-    }
+    let steps = shortestSteps(activeIdx, selectedIdx);
     if (steps !== 0) {
       animateClickSteps(steps);
     }
@@ -165,6 +190,25 @@ function handleMenuChange(e){
   window.location.hash = anchor.getAttribute("href");
 }
 
+function setMenuActiveNoAnimate(idx) {
+  document.querySelector(`[data-idx="${activeIdx}"]`).classList.remove("active");
+
+  let steps = shortestSteps(activeIdx, idx);
+
+  while(steps !== 0){
+    if(steps > 0) {
+      shiftPositionsUp();
+      steps--;
+    } else {
+      shiftPositionsDown();
+      steps++;
+    }
+  }
+
+  activeIdx = idx;
+  document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active");
+}
+
 //INIT
 for (let i = 0; i < boxes.length; i++) {
   let box = boxes[i];
@@ -183,7 +227,8 @@ for (let i = 0; i < boxes.length; i++) {
     positions.push([-boxWidth, topValue]);
   }
 }
-document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active"); //set active border
+
+setMenuActiveNoAnimate(idxForHash(window.location.hash));
 changeContent();
 document.addEventListener("keydown", (e) => {
   if(["ArrowDown", "ArrowUp"].includes(e.key)){
