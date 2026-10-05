@@ -25,6 +25,10 @@ body{
     width: 25%;
 }
 
+.no-animate {
+    transition: none !important;
+}
+
 #solidIcon {
     z-index: 1;
     mix-blend-mode: normal;

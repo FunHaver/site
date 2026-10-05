@@ -12,6 +12,7 @@ const menuTimeoutMS = 225; //timeout 25 ms < animation duration in css
 const homeIdx = 2;
 let disableControls = false;
 let activeIdx = 2;
+let targetIdx = 2;
 const boxWidth = boxes[0].offsetWidth;
 const boxHeight = boxes[0].offsetHeight;
 let positions = [];
@@ -185,14 +186,21 @@ function handleMenuChange(e){
     return;
   }
   animate(e);
-  const idx = e.type === "click" ? parseInt(e.currentTarget.getAttribute("data-idx")) : activeIdx;
-  const anchor = document.querySelector(`[data-idx="${idx}"]`).parentElement;
-  window.location.hash = anchor.getAttribute("href");
+  targetIdx = e.type === "click" ? parseInt(e.currentTarget.getAttribute("data-idx")) : activeIdx;
+  const anchor = document.querySelector(`[data-idx="${targetIdx}"]`).parentElement;
+  changeContent(anchor.getAttribute("href"));
+  if(e.type === "keydown") {
+    window.location.hash = anchor.getAttribute("href");
+  }
 }
 
 function setMenuActiveNoAnimate(idx) {
   document.querySelector(`[data-idx="${activeIdx}"]`).classList.remove("active");
-
+  for(let i = 0; i < boxes.length; i++){
+    let box = boxes[i];
+    box.classList.add("no-animate");
+  }
+  boxes[0].offsetHeight; //css hack to force recalculate rules
   let steps = shortestSteps(activeIdx, idx);
 
   while(steps !== 0){
@@ -204,9 +212,26 @@ function setMenuActiveNoAnimate(idx) {
       steps++;
     }
   }
+  boxes[0].offsetHeight; //css hack to force recalculate rules
 
+  for(let i = 0; i < boxes.length; i++){
+    let box = boxes[i];
+    box.classList.remove("no-animate");
+  }
   activeIdx = idx;
   document.querySelector(`[data-idx="${activeIdx}"]`).classList.add("active");
+}
+
+function handleHashChange() {
+  debugger;
+  const currentHash = window.location.hash;
+  if(targetIdx === urlHashIdx[currentHash] || targetIdx - (boxes.length / 2) === urlHashIdx[currentHash]) {
+    return;
+  }
+
+  setMenuActiveNoAnimate(idxForHash(window.location.hash));
+  changeContent();
+  targetIdx = urlHashIdx[currentHash];
 }
 
 //INIT
@@ -236,6 +261,6 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-window.addEventListener("hashchange",() => {
-  changeContent();
+window.addEventListener("hashchange", e => {
+  handleHashChange();
 })
