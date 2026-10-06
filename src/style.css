@@ -1,8 +1,14 @@
+* {
+  box-sizing: border-box;
+}
 
 :root {
     --nice-grey: #6A6A6A;
-    --highlight: #9CC5C8;
+    --highlight: #599FA1;
     --color-3: #f9d977;
+    --fonts: 'Gill Sans', 'Gill Sans MT', Seravek, Optima,
+             Candara, Corbel, Calibri, 'Trebuchet MS',
+             'DejaVu Sans', sans-serif;
 }
 
 body{
@@ -23,6 +29,7 @@ body{
     right: 5px;
     top: 10px;
     width: 25%;
+    min-width: 250px;
 }
 
 .no-animate {
@@ -35,7 +42,7 @@ body{
 }
 
 #overlayIcon {
-    mix-blend-mode: overlay;
+    mix-blend-mode: soft-light;
     z-index: 3;
 }
 
@@ -86,7 +93,7 @@ body{
     justify-content: center;
     pointer-events: none;
     .page-title {
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-family: var(--fonts);
         font-weight: bold;
         font-size: 2rem;
         color: white;
@@ -103,7 +110,25 @@ body{
     width: 100%;
     clip-path: polygon(1% 0%, 100% 0%, 100% 30%, 100% 70%, 100% 100%, 1% 100%, 0% 98%, 0% 2%);
     color: white;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: var(--fonts);
     z-index: 2;
     padding-left: 15px;
+    
+    h1 {
+        font-size: 2.5em;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    p, li {
+        font-size: 1.25em;
+    }
 }

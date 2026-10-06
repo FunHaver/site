@@ -1,11 +1,11 @@
 [x] Fix behavior when refreshing on not home page
-[] Fix behavior when manually changing url hash
+[x] Fix behavior when manually changing url hash
 [] Add depth to dist directory for copyToDist script
 [] Add content to content_pages
-[] Do CSS styling
+[x] Do CSS styling
   [x] Menu styling
   [x] Content styling
-  [] Font selection
+  [x] Font selection
   [x] Background selection
 [] implement mobile version
   -Once aspect ratio < 1.0 go mobile mode

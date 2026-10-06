@@ -11,7 +11,9 @@
       "style.css",
       "three.min.js",
       "vanta.dots.min.js",
-      "sample-100kb.pdf"
+      "sample-100kb.pdf",
+      "tempchat_desktop.png",
+      "tempchat_mobile.png"
     ]
   }
 }
