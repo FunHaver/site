@@ -2,12 +2,20 @@
 [x] Fix behavior when manually changing url hash
 [] Add depth to dist directory for copyToDist script
 [] Add content to content_pages
+  [] Code Page
+    [] Resize screenshots
+    [] Record and post NAND2Tetris program in action
+  [] Video Page
+    [] Source reel videos and embed them
+  [] Contact
+    [] make URLs clickable
+  [] Resume
+    [] Upload resume to service and put link in pdf src
 [x] Do CSS styling
   [x] Menu styling
   [x] Content styling
   [x] Font selection
   [x] Background selection
-[] implement mobile version
-  -Once aspect ratio < 1.0 go mobile mode
+[x] implement mobile version
 [] make website keyboard-navigable (via tab/focus)
 [] high-contrast/easy-to-read switch
