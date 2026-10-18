@@ -17,5 +17,8 @@
   [x] Font selection
   [x] Background selection
 [x] implement mobile version
+  [x] pan layout to reveal menu, hamburger toggle, tap content/option to pan back
+  [x] no horizontal scrolling at any width
+  [x] constrain content images/pdf object to the pane
 [] make website keyboard-navigable (via tab/focus)
 [] high-contrast/easy-to-read switch

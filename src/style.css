@@ -6,6 +6,8 @@
     --nice-grey: #6A6A6A;
     --highlight: #599FA1;
     --color-3: #f9d977;
+    --menu-w: 300px;
+    --pan-duration: 0.3s;
     --fonts: 'Gill Sans', 'Gill Sans MT', Seravek, Optima,
              Candara, Corbel, Calibri, 'Trebuchet MS',
              'DejaVu Sans', sans-serif;
@@ -46,9 +48,15 @@ body{
     z-index: 3;
 }
 
+/* the hamburger and the tap-to-close scrim only exist in the mobile layout */
+#menu-toggle,
+#menu-scrim {
+    display: none;
+}
+
 .layout {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: var(--menu-w) 1fr;
     align-items: center;
     height: 100vh;
 }
@@ -56,7 +64,7 @@ body{
 .menu {
     position: relative;
     grid-column: 1/2;
-    width: 300px;
+    width: var(--menu-w);
     height: 555px;
     overflow:visible;
     z-index: 99;
@@ -67,7 +75,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 300px;
+    width: var(--menu-w);
     height: 100px;
     background-color: var(--nice-grey);
     transition: top 0.25s, left 0.25s;
@@ -130,5 +138,137 @@ body{
 
     p, li {
         font-size: 1.25em;
+    }
+
+    /* keep embedded media inside the pane - the code page screenshots and the resume
+       object are both wider than the content area on their own */
+    img, video, object {
+        max-width: 100%;
+    }
+}
+
+/* MOBILE LAYOUT
+   The grid gets wider than the screen (menu column + a full-viewport content column) and
+   is translated left by the menu width, so the content fills the screen and the menu waits
+   just off-frame. Adding .menu-open to the body pans back to 0, like a camera move.
+   Breakpoint must stay in sync with the matchMedia call in index.jsx. */
+@media (max-width: 768px) {
+    /* set on both elements: body's overflow only propagates to the viewport while the
+       root element is still `visible`. This is what kills the horizontal scroll. */
+    html, body {
+        overflow: hidden;
+        position: relative;
+    }
+    .wrapper {
+        overflow: hidden;
+        width: 100%;
+    }
+    .layout {
+        position: relative; /* containing block for #menu-scrim */
+        z-index: 2; /* the transform below makes .layout a stacking context, so it now
+                       competes with the bg icons as a whole: this keeps the paint order
+                       dots(0) -> #solidIcon(1) -> layout -> #overlayIcon(3) */
+        width: calc(100vw + var(--menu-w));
+        height: 100vh;
+        height: 100dvh; /* dvh tracks iOS Safari's collapsing toolbar */
+        transform: translateX(calc(-1 * var(--menu-w)));
+        transition: transform var(--pan-duration) ease-in-out;
+    }
+
+    /* the icon is anchored to the right of the viewport, which is already where the
+       content pane sits when closed, so it starts put and travels with the pan */
+    .bg-icon {
+        transition: transform var(--pan-duration) ease-in-out;
+    }
+
+    body.menu-open .layout {
+        transform: translateX(0);
+    }
+
+    body.menu-open .bg-icon {
+        transform: translateX(var(--menu-w));
+    }
+
+    .content {
+        height:  calc(100vh - 125px);
+        height: calc(100dvh - 125px);
+        margin-left: 12px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        padding-right: 15px;
+        padding-top: 25px;
+        overflow-wrap: break-word;
+        clip-path: polygon(5% 0%, 100% 0%, 100% 30%, 100% 70%, 100% 100%, 5% 100%, 0% 95%, 0% 5%);
+    }
+
+    /* this copy talks about the left-hand menu and the arrow keys */
+    #desktopControls {
+        display: none;
+    }
+
+    #menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 6px;
+        position: fixed; /* stays put while the layout pans beneath it */
+        top: 12px;
+        left: 12px;
+        z-index: 100;
+        width: 44px;
+        height: 44px;
+        padding: 10px;
+        border: none;
+        background: var(--nice-grey);
+        cursor: pointer;
+
+        .bar {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: white;
+            transition: transform var(--pan-duration) ease,
+                        opacity var(--pan-duration) ease;
+        }
+    }
+
+    /* the three bars collapse into an X while open */
+    body.menu-open #menu-toggle {
+        .bar:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        .bar:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+    }
+
+    /* covers the content column so tapping the visible sliver pans back instead of
+       activating a link inside the content */
+    #menu-scrim {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: var(--menu-w);
+        z-index: 50; /* above .content (2), below .menu (99) */
+        background: transparent;
+    }
+
+    body:not(.menu-open) #menu-scrim {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .layout,
+    .bg-icon,
+    #menu-toggle .bar {
+        transition: none;
     }
 }

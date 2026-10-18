@@ -223,16 +223,49 @@ function setMenuActiveNoAnimate(idx) {
 }
 
 function handleHashChange() {
-  debugger;
   const currentHash = window.location.hash;
   if(targetIdx === urlHashIdx[currentHash] || targetIdx - (boxes.length / 2) === urlHashIdx[currentHash]) {
     return;
   }
 
+  setMenuOpen(false); //back/forward on mobile should land on the content, not the menu
   setMenuActiveNoAnimate(idxForHash(window.location.hash));
   changeContent();
   targetIdx = urlHashIdx[currentHash];
 }
+
+//MOBILE MENU PAN
+//the closed state is the media query's default transform, so there is nothing to set up
+//here and no flash of the menu on load. Above the breakpoint the pan rules and the chrome
+//are inert, so .menu-open does nothing on desktop.
+//breakpoint must stay in sync with the @media rule in style.css
+const mobileQuery = window.matchMedia("(max-width: 768px)");
+const menuToggle = document.getElementById("menu-toggle");
+const menuScrim = document.getElementById("menu-scrim");
+
+function setMenuOpen(open) {
+  document.body.classList.toggle("menu-open", open);
+  menuToggle.setAttribute("aria-expanded", String(open));
+}
+
+function menuIsOpen() {
+  return document.body.classList.contains("menu-open");
+}
+
+menuToggle.addEventListener("click", () => setMenuOpen(!menuIsOpen()));
+menuScrim.addEventListener("click", () => setMenuOpen(false));
+
+//listen on the menu container rather than the boxes: this still fires by bubbling while
+//handleMenuChange is ignoring clicks during a multi-step rotation, so a selection always
+//pans back even if the menu is still animating
+document.getElementById("menu").addEventListener("click", () => setMenuOpen(false));
+
+//drop a stale open state if the viewport grows past the breakpoint
+mobileQuery.addEventListener("change", (e) => {
+  if (!e.matches) {
+    setMenuOpen(false);
+  }
+});
 
 //INIT
 for (let i = 0; i < boxes.length; i++) {
