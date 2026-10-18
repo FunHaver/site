@@ -7,6 +7,9 @@
     --highlight: #599FA1;
     --color-3: #f9d977;
     --menu-w: 300px;
+    --toggle-inset: 12px;
+    --toggle-size: 44px;
+    --toggle-clear: calc(var(--toggle-inset) * 2 + var(--toggle-size));
     --pan-duration: 0.3s;
     --fonts: 'Gill Sans', 'Gill Sans MT', Seravek, Optima,
              Candara, Corbel, Calibri, 'Trebuchet MS',
@@ -159,10 +162,7 @@ body{
         overflow: hidden;
         position: relative;
     }
-    .wrapper {
-        overflow: hidden;
-        width: 100%;
-    }
+
     .layout {
         position: relative; /* containing block for #menu-scrim */
         z-index: 2; /* the transform below makes .layout a stacking context, so it now
@@ -212,11 +212,11 @@ body{
         justify-content: center;
         gap: 6px;
         position: fixed; /* stays put while the layout pans beneath it */
-        top: 12px;
-        left: 12px;
+        top: var(--toggle-inset);
+        left: var(--toggle-inset);
         z-index: 100;
-        width: 44px;
-        height: 44px;
+        width: var(--toggle-size);
+        height: var(--toggle-size);
         padding: 10px;
         border: none;
         background: var(--nice-grey);
@@ -262,6 +262,35 @@ body{
 
     body:not(.menu-open) #menu-scrim {
         display: none;
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+    html, body {
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+    .layout {
+        align-items: start;
+    }
+
+    .menu,
+    .content {
+        margin-top: var(--toggle-clear);
+    }
+
+    .menu {
+        overflow: hidden;
+    }
+
+    #dotsBg {
+        position: fixed;
+    }
+
+    .content {
+        padding-top: 0;
+        height: calc(100% - var(--toggle-clear) - var(--toggle-inset));
+        height: calc(100% - var(--toggle-clear) - var(--toggle-inset));
     }
 }
 
