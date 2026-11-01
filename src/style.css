@@ -143,10 +143,18 @@ body{
         font-size: 1.25em;
     }
 
-    /* keep embedded media inside the pane - the code page screenshots and the resume
-       object are both wider than the content area on their own */
     img, video, object {
         max-width: 100%;
+    }
+
+    .img-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .img-row img {
+        min-width: 0; /* flex items floor at their intrinsic width without this */
     }
 }
 
@@ -199,6 +207,11 @@ body{
         padding-top: 25px;
         overflow-wrap: break-word;
         clip-path: polygon(5% 0%, 100% 0%, 100% 30%, 100% 70%, 100% 100%, 5% 100%, 0% 95%, 0% 5%);
+
+        /* no room for a row at portrait widths */
+        .img-row {
+            flex-direction: column;
+        }
     }
 
     /* this copy talks about the left-hand menu and the arrow keys */
@@ -291,6 +304,11 @@ body{
         padding-top: 0;
         height: calc(100% - var(--toggle-clear) - var(--toggle-inset));
         height: calc(100% - var(--toggle-clear) - var(--toggle-inset));
+
+        /* rotated back into landscape, there is width for the pair again */
+        .img-row {
+            flex-direction: row;
+        }
     }
 }
 

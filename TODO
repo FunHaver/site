@@ -1,14 +1,14 @@
 [x] Fix behavior when refreshing on not home page
 [x] Fix behavior when manually changing url hash
-[] Add depth to dist directory for copyToDist script
 [] Add content to content_pages
   [] Code Page
-    [] Resize screenshots
+    [x] Resize screenshots
     [] Record and post NAND2Tetris program in action
-  [] Video Page
+  [x] Video Page
+    [x] Consolidate into one or two reel videos
     [] Source reel videos and embed them
-  [] Contact
-    [] make URLs clickable
+  [x] Contact
+    [x] make URLs clickable
   [] Resume
     [] Upload resume to service and put link in pdf src
 [x] Do CSS styling
@@ -20,5 +20,6 @@
   [x] pan layout to reveal menu, hamburger toggle, tap content/option to pan back
   [x] no horizontal scrolling at any width
   [x] constrain content images/pdf object to the pane
+[] Add depth to dist directory for copyToDist script
 [] make website keyboard-navigable (via tab/focus)
 [] high-contrast/easy-to-read switch
