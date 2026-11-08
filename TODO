@@ -1,16 +1,17 @@
 [x] Fix behavior when refreshing on not home page
 [x] Fix behavior when manually changing url hash
-[] Add content to content_pages
-  [] Code Page
+[x] Add content to content_pages
+  [x] Code Page
     [x] Resize screenshots
-    [] Record and post NAND2Tetris program in action
+    [x] Record and post NAND2Tetris program in action
   [x] Video Page
     [x] Consolidate into one or two reel videos
-    [] Source reel videos and embed them
+    [x] Source reel videos and embed them
   [x] Contact
     [x] make URLs clickable
-  [] Resume
-    [] Upload resume to service and put link in pdf src
+  [x] Resume
+    [x] Write broad resume
+    [x] Upload resume to service and put link in pdf src
 [x] Do CSS styling
   [x] Menu styling
   [x] Content styling
